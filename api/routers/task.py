@@ -19,6 +19,9 @@ async def list_tasks(db: AsyncSession = Depends(get_db)):
 async def create_task(
     task_body: task_schema.TaskCreate, db: AsyncSession = Depends(get_db)
 ):
+    print(task_body.dict())
+    if task_body.title in (None, '') :
+        raise HTTPException(status_code=400, detail="Task Name is None")
     return await task_crud.create_task(db, task_body)
 
 
