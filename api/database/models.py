@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from api.db import Base
+from api.database.db import ModelBase
 
 
-class Task(Base):
+
+class Task(ModelBase):
     __tablename__ = "tasks"
 
     id = Column(Integer, primary_key=True)
@@ -13,7 +14,7 @@ class Task(Base):
     done = relationship("Done", back_populates="task", cascade="delete")
 
 
-class Done(Base):
+class Done(ModelBase):
     __tablename__ = "dones"
 
     id = Column(Integer, ForeignKey("tasks.id"), primary_key=True)
